@@ -27,12 +27,16 @@ myApp.service('weatherService', function() {
 });
 
 // Controllers
-myApp.controller('inputsController', ['$scope', 'weatherService', function($scope, weatherService) {
+myApp.controller('inputsController', ['$scope', 'weatherService', '$location', function($scope, weatherService, $location) {
 	$scope.city = weatherService.city;
 
 	$scope.$watch('city', function() {
 		weatherService.city = $scope.city;
 	});
+
+	$scope.submit = function() {
+		$location.path('/forecast');
+	};
 
 }]);
 
@@ -44,11 +48,11 @@ myApp.controller('forecastsController', ['$scope', 'weatherService', '$resource'
 	
 	$scope.convertToFahrenheit = function(degK) {
 		return Math.round((1.8 * (degK - 273)) + 32);
-	}
+	};
 
 	$scope.convertToDate = function(dt) {
 		return new Date(dt * 1000);
-	}
+	};
 }]);
 
 // Custom Directives
