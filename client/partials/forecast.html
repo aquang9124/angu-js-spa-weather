@@ -1,0 +1,20 @@
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<h1 class="text-center">Forecast for {{ city }}</h1>
+		<hr>
+	</div>
+</div>
+<div ng-repeat="w in weatherResult.list">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h2 class="panel-title" ng-cloak>{{ convertToDate(w.dt) | date: 'MMM dd, y' }}</h2>
+				</div>
+				<div class="panel-body">
+					<p ng-cloak>Daytime Temp: {{ convertToFahrenheit(w.temp.day) }}</p>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
