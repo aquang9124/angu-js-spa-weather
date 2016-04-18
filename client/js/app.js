@@ -11,6 +11,10 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngResource']);
 			templateUrl: 'partials/forecast.html',
 			controller: 'forecastsController'
 		})
+		.when('/forecast/:days', {
+			templateUrl: 'partials/forecast.html',
+			controller: 'forecastsController'
+		})
 		.otherwise({
 			redirectTo: '/'
 		});
@@ -32,11 +36,11 @@ myApp.controller('inputsController', ['$scope', 'weatherService', function($scop
 
 }]);
 
-myApp.controller('forecastsController', ['$scope', 'weatherService', '$resource', function($scope, weatherService, $resource) {
+myApp.controller('forecastsController', ['$scope', 'weatherService', '$resource', '$routeParams', function($scope, weatherService, $resource, $routeParams) {
 	$scope.city = weatherService.city;
-
+	$scope.days = $routeParams.days || 7;
 	$scope.weatherAPI = $resource("http://api.openweathermap.org/data/2.5/forecast/daily", { callback: "JSON_CALLBACK" }, { get: { method: "JSONP" }});
-	$scope.weatherResult = $scope.weatherAPI.get({ q: $scope.city, APPID: 'a46667762de09a024f3bd04dc9a695d2' });
+	$scope.weatherResult = $scope.weatherAPI.get({ q: $scope.city, cnt: $scope.days, APPID: 'a46667762de09a024f3bd04dc9a695d2' });
 	
 	$scope.convertToFahrenheit = function(degK) {
 		return Math.round((1.8 * (degK - 273)) + 32);
