@@ -23,7 +23,7 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngResource']);
 // Services
 myApp.service('weatherService', function() {
 	var self = this;
-	this.city = 'San Jose';
+	this.city = 'San Jose, CA';
 });
 
 // Controllers
@@ -50,3 +50,18 @@ myApp.controller('forecastsController', ['$scope', 'weatherService', '$resource'
 		return new Date(dt * 1000);
 	}
 }]);
+
+// Custom Directives
+myApp.directive('wspaPanel', function() {
+	return {
+		restrict: 'E',
+		templateUrl: 'directives/weatherpanel.html',
+		replace: true,
+		scope: {
+			weatherDayObj: "=",
+			convertToStandard: "&",
+			convertToDate: "&",
+			dateFormat: "@"
+		}
+	};
+});

@@ -2,21 +2,22 @@
 	<div class="col-md-6 col-md-offset-3">
 		<h1 class="text-center">Forecast for {{ city }}</h1>
 		<hr>
-		<p class="text-center">Days: <a href="#/forecast/2">2</a> | <a href="#/forecast/5">5</a> | <a href="#/forecast/7">7</a></p>
+		<p class="text-center">Days: <a href="#/forecast/2" ng-class="{ 'bg-primary': days == 2 }">2</a> | <a href="#/forecast/5" ng-class="{ 'bg-primary': days == 5 }">5</a> | <a href="#/forecast/7" ng-class="{ 'bg-primary': days == 7 }">7</a></p>
 		<hr>
 	</div>
 </div>
 <div ng-repeat="w in weatherResult.list">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h2 class="panel-title" ng-cloak>{{ convertToDate(w.dt) | date: 'MMM dd, y' }}</h2>
-				</div>
-				<div class="panel-body">
-					<p ng-cloak>Daytime Temp: {{ convertToFahrenheit(w.temp.day) }}</p>
-				</div>	
-			</div>
+			<wspa-panel weather-day-obj="w" convert-to-standard="convertToFahrenheit(degK)" convert-to-date="convertToDate(dt)" date-format="MMM d, y"></wspa-panel>
 		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<footer>
+			<hr>
+			<p class="text-center"><a href="#/">Back To Search</a></p>
+		</footer>
 	</div>
 </div>
